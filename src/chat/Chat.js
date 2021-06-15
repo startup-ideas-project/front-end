@@ -2,8 +2,16 @@ import React from 'react';
 import { ChannelList } from './ChannelList';
 import './chat.scss';
 import { MessagesPanel } from './MessagesPanel';
-import SignIn from '../login/component/login'
+import SignIn from '../components/login/login'
 import socketClient from "socket.io-client";
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link
+  } from "react-router-dom";
+import SignUp from '../components/signup/signup';
+import LandingPage from '../components/chat/chat';
 const SERVER = "http://127.0.0.1:8080";
 
 class Chat extends React.Component {
@@ -75,11 +83,17 @@ class Chat extends React.Component {
 
     render() {
         return (
-            <div className='chat-app'>
-                <SignIn />
+            <Router>
+                <Switch>
+                    <Route path="/signin" component={SignIn}/>
+                    <Route path="/signup" component={SignUp}/>
+                    <Route path="/" component={LandingPage}/>
+                </Switch>
+
                 {/* <ChannelList channels={this.state.channels} onSelectChannel={this.handleChannelSelect} /> */}
                 {/* <MessagesPanel onSendMessage={this.handleSendMessage} channel={this.state.channel} /> */}
-            </div>
+
+            </Router>
         );
     }
 }

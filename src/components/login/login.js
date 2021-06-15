@@ -15,6 +15,12 @@ import Container from '@material-ui/core/Container';
 // APIs
 import {USER_API} from '../../api'
 
+// Redux stuff
+import {USER_AUTHENTICATED} from '../../redux/user/user.types'
+import { useDispatch } from "react-redux";
+
+
+
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
@@ -35,16 +41,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignIn() {
-  const classes = useStyles();
+const SignIn = (props) => {
   const [userName, setUserName] = useState("")
   const [userPassword, setUserPassword] = useState("") //needed to encrypt password before sending on wire
-  const [authenticated, setAuthenticated] = useState(false)
+  const dispatch = useDispatch();
+
+  const classes = useStyles();
 
   const onSubmitHandler = (userName, password) => {
     USER_API.loginUser(userName, password).then(res => {
-        console.log(res)
-        if (res.status === 200){ setAuthenticated(true)}
+        if (res.status === 200){ dispatch({
+          type: USER_AUTHENTICATED
+        })}
     }).catch(err => console.log(err))
   }
 
@@ -118,3 +126,5 @@ export default function SignIn() {
     </Container>
   );
 }
+
+export default SignIn;
