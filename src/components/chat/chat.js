@@ -1,19 +1,8 @@
-import React from 'react';
+import React, {useState} from 'react';
+import FileUpload from '../upload-file/upload';
+import FileView from '../file-view/file-view';
+import DocumentView from '../document-view/document-view';
 
-const FileView = () => {
-    return(
-        <div>
-            <h1>File View</h1>
-        </div>
-    )
-}
-const DocumentView = () => {
-    return(
-        <div>
-            <h1>DocumentView</h1>
-        </div>
-    )
-}
 const ChatView = () => {
     return(
         <div>
@@ -22,11 +11,17 @@ const ChatView = () => {
     )
 }
 const LandingPage = () => {
+    const [documentId, setDocumentId] = useState("");
     return (
         <div>
-            <FileView />
-            <DocumentView />
-            <ChatView />
+            <div className="flexbox-container">
+                <FileView setDocumentId={setDocumentId} />
+                <DocumentView documentId={documentId}/>
+                <ChatView />
+            </div>
+            <div>
+                <FileUpload />
+            </div>
         </div>
     )
 }
