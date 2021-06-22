@@ -12,6 +12,9 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 
+// Router
+import { useHistory } from "react-router-dom";
+
 // APIs
 import {USER_API} from '../../api'
 
@@ -48,11 +51,18 @@ const SignIn = (props) => {
 
   const classes = useStyles();
 
+  // routing stuff
+  const history = useHistory()
+  // ===========================
+
   const onSubmitHandler = (userName, password) => {
     USER_API.loginUser(userName, password).then(res => {
-        if (res.status === 200){ dispatch({
-          type: USER_AUTHENTICATED
-        })}
+        if (res.status === 200){ 
+          dispatch({
+            type: USER_AUTHENTICATED
+          })
+          history.push("/")
+      }
     }).catch(err => console.log(err))
   }
 

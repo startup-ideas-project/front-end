@@ -1,24 +1,17 @@
-import React, { useEffect, useState } from 'react';
-import {getFiles, getFileById} from '../../api/file-service'
+import React from 'react';
 
-const FileView = ({setDocumentId}) => {
-    const [files, setFiles] = useState([])
-
-    useEffect(() => {
-        getFiles().then(data => setFiles(data.data.Items))
-    }, [])
-
+const FileView = ({documents, setDocument}) => {
     const onClickHandler = (id) =>{
-        setDocumentId(id)
+        setDocument(id)
     }
     return(
-        <div>
-            {files.map(item => {
+        <div className='channel-list'>
+            {documents.map(item => {
                 return (
                 <ul key={item.key}>
                     <button onClick={(event) =>{
                         event.preventDefault()
-                        onClickHandler(item.key)
+                        onClickHandler(item)
                     }}>
                         {item.S3URL}
                     </button>

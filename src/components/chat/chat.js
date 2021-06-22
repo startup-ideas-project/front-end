@@ -1,23 +1,26 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import FileUpload from '../upload-file/upload';
 import FileView from '../file-view/file-view';
 import DocumentView from '../document-view/document-view';
+import ChatView from '../chat-view/chat-view';
+import {getFiles} from '../../api/file-service';
+import './chat.scss';
 
-const ChatView = () => {
-    return(
-        <div>
-            <h1>ChatView</h1>
-        </div>
-    )
-}
 const LandingPage = () => {
-    const [documentId, setDocumentId] = useState("");
+    const [selectedDocument, setSelectedDocument] = useState("");
+
+    const [files, setFiles] = useState([])
+
+    useEffect(() => {
+        getFiles().then(data => setFiles(data.data.Items))
+    }, [])
+    
     return (
         <div>
             <div className="flexbox-container">
-                <FileView setDocumentId={setDocumentId} />
-                <DocumentView documentId={documentId}/>
-                <ChatView />
+                <FileView setDocument={setSelectedDocument} documents={files}/>
+                <DocumentView document={selectedDocument}/>
+                <ChatView document={selectedDocument}/>
             </div>
             <div>
                 <FileUpload />
