@@ -12,10 +12,7 @@ const DocumentView = ({document}) => {
             anchorNode: '?',
             focusNode: '?',
             selectionStart: '?',
-            selectionEnd: '?',
-            first: '',
-            middle: '',
-            last: ''
+            selectionEnd: '?'
     })
 
     useEffect(() => {
@@ -70,9 +67,6 @@ const DocumentView = ({document}) => {
         }
 
         const selectionEnd = selectionStart + selection.length;
-        const first = selectedState.text.slice(0, selectionStart);
-        const middle = selectedState.text.slice(selectionStart, selectionEnd);
-        const last = selectedState.text.slice(selectionEnd);
 
         setSelectedState({
             ...selectedState,
@@ -80,13 +74,9 @@ const DocumentView = ({document}) => {
             anchorNode,
             focusNode,
             selectionStart,
-            selectionEnd,
-            // first,
-            // middle,
-            // last
+            selectionEnd
         })
     }
-    console.log(selectedState)
     return(
         <div>
             <span onMouseUp={onMouseUpHandler}>{selectedState.text}</span>

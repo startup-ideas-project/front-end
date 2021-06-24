@@ -8,18 +8,18 @@ const ChatView = ({document}) => {
     const socketURL = "http://127.0.0.1:4080";
     const [response, setResponse] = useState("");
     const [inputText, setInputText] = useState("")
+    const [useSocket, setUseSocket] = useState(null)
     const [messageStore, setMessageStore] = useState([])
 
     const handleInput = (event) => {
         setInputText(event.target.value)
     }
 
-    const socket = socketIOClient(socketURL);
-
     const send = (documentKey, message) => {
-        socket.emit(documentKey, message)
-        socket.on(documentKey, data => {
+        useSocket.emit(documentKey, message)
+        useSocket.on(documentKey, data => {
             setResponse(data)
+            setInputText("")
           });
     }
 
@@ -27,7 +27,10 @@ const ChatView = ({document}) => {
         getMessages("authenticatedUser1").then(data => setMessageStore(data))
     },[response])
 
-    console.log(messageStore)
+    useEffect(() => {
+        const socket = socketIOClient(socketURL);
+        setUseSocket(socket)
+    },[])
 
     return(
         <div>

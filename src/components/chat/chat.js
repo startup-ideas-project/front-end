@@ -1,10 +1,9 @@
 import React, {useState, useEffect} from 'react';
-import FileUpload from '../upload-file/upload';
+import Box from '@material-ui/core/Box';
 import FileView from '../file-view/file-view';
 import DocumentView from '../document-view/document-view';
 import ChatView from '../chat-view/chat-view';
 import {getFiles} from '../../api/file-service';
-import './chat.scss';
 
 const LandingPage = () => {
     const [selectedDocument, setSelectedDocument] = useState("");
@@ -17,14 +16,17 @@ const LandingPage = () => {
     
     return (
         <div>
-            <div className="flexbox-container">
-                <FileView setDocument={setSelectedDocument} documents={files}/>
-                <DocumentView document={selectedDocument}/>
-                <ChatView document={selectedDocument}/>
-            </div>
-            <div>
-                <FileUpload />
-            </div>
+            <Box display="flex" flexDirection="row" p={1} m={1}>
+                <Box p={1}  m={1} bgcolor="grey.300">
+                    <FileView setDocument={setSelectedDocument} documents={files}/>
+                </Box>
+                <Box p={1}  m={1} flexGrow={1} bgcolor="grey.300">
+                    <DocumentView document={selectedDocument}/>
+                </Box>
+                <Box p={1} m={1} bgcolor="grey.300">
+                    <ChatView document={selectedDocument}/>
+                </Box>
+            </Box>
         </div>
     )
 }

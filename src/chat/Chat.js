@@ -1,7 +1,7 @@
 import React from 'react';
-import './chat.scss';
 import SignIn from '../components/login/login'
 import AuthedRoute from '../components/authed-route/authed-route'
+import FileUpload from '../components/upload-file/upload'
 import {
     BrowserRouter as Router,
     Switch,
@@ -21,8 +21,10 @@ const Chat = () => {
 
                 {/* this is the correct route */}
                 {/* <AuthedRoute authed={user.authenticated}  path="/" Component={LandingPage}/> */}
+                {/* <AuthedRoute authed={user.authenticated}  path="/upload" Component={LandingPage}/> */}
 
                 {/* Only for debugging */}
+                <Route path="/upload" component={FileUpload}/>
                 <Route path="/" component={LandingPage}/>
             </Switch>
         </Router>
