@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import {loadFileByID} from '../../api/file-service'
+import {loadFileByID} from '../../api/file-service';
+import {postComment, getCommentByDocID} from '../../api/comment-service';
 
-const DocumentView = ({document}) => {
+const DocumentView = ({document, setSelectedComment}) => {
     const [file, setFile] = useState({
         data: ""
     })
@@ -14,6 +15,15 @@ const DocumentView = ({document}) => {
             selectionStart: '?',
             selectionEnd: '?'
     })
+    const [commentPosition, setCommentPosition] = useState([])
+
+    useEffect(() => {
+        if(document){
+            getCommentByDocID(document.key).then(data => {
+                setCommentPosition(data.data)
+            })
+        }
+    },[document])
 
     useEffect(() => {
         if(document){
@@ -26,6 +36,32 @@ const DocumentView = ({document}) => {
             }) 
         }  
     },[document])
+
+    const handleTextButtonOnClick = (text, setSelectedComment) => {
+        // open a new chat section with the selected text of the document on top
+        setSelectedComment({
+            text,
+            commentid: commentPosition[0].commentid
+        })
+    }
+    const setCommentSectionAsButton =  (text, positions) => {
+        const textResult = (previousText, buttonText, remainingText) => {
+            return (
+                <p>
+                    {previousText}
+                    <button onClick={() => handleTextButtonOnClick(buttonText, setSelectedComment)}>{buttonText}</button>
+                    {remainingText}
+                </p>
+            )
+        }
+        // only work for individual comments for now, no overlap, this code block needs to be fixed
+        const startindex = positions[0]?.startindex || 0
+        const endingindex = positions[0]?.endingindex || 0
+        // =====================
+
+
+        return textResult(text.slice(0,startindex), text.slice(startindex, endingindex), text.slice(endingindex,17))
+    }
 
     const onMouseUpHandler = (event) => {
         event.preventDefault();
@@ -77,9 +113,20 @@ const DocumentView = ({document}) => {
             selectionEnd
         })
     }
+
+    const handleOnClick = (event) => {
+        event.preventDefault();
+        postComment({
+            creatorID: '6e0479c2-5fce-4e11-8e2d-910aea60f0bb',
+            startIndex: selectedState.selectionStart,
+            endingIndex: selectedState.selectionEnd,
+            documentID: document.key,
+        })
+    }
     return(
         <div>
-            <span onMouseUp={onMouseUpHandler}>{selectedState.text}</span>
+            <span onMouseUp={onMouseUpHandler}>{setCommentSectionAsButton(selectedState.text, commentPosition)}</span>
+            <button onClick={handleOnClick}>Comment</button>
         </div>
     )
 }

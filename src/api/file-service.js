@@ -1,8 +1,8 @@
 import axios from 'axios';
 
-const fileServiceURL = "http://localhost:4040/file"
+const fileServiceURL = "http://localhost:9000/file"
 const fileUpload = (file) => {
-    return axios.post(`${fileServiceURL}`, file, {
+    return axios.post(`${fileServiceURL}/upload`, file, {
         headers: {
             'content-type': 'multipart/form-data'
         }

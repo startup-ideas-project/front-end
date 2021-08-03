@@ -13,7 +13,7 @@ const FileView = ({documents, setDocument}) => {
                         event.preventDefault()
                         onClickHandler(item)
                     }}>
-                        {item.S3URL}
+                        {item.fileName}
                     </button>
                 </ul>)
             })}
