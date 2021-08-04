@@ -16,17 +16,17 @@ const ChatView = ({comment}) => {
         setInputText(event.target.value)
     }
 
-    const send = (documentKey, message) => {
-        useSocket.emit(documentKey, message)
-        useSocket.on(documentKey, data => {
+    const send = (commentID, message) => {
+        useSocket.emit(commentID, message)
+        useSocket.on(commentID, data => {
             setResponse(data)
             setInputText("")
           });
     }
 
-    console.log(comment)
     useEffect(() => {
         getMessages(comment.commentid).then(data => {
+            console.log(data)
             setMessageStore(data.data.Items)
         })
     },[comment])
@@ -37,7 +37,7 @@ const ChatView = ({comment}) => {
     },[])
 
     useEffect(() => {
-        const messages = messageStore.map(item => { 
+        const messages = messageStore.map(item => {
             return {
                 message : item.message,
                 creator : item.creator}
