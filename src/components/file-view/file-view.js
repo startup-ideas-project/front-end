@@ -5,19 +5,20 @@ const FileView = ({documents, setDocument}) => {
         setDocument(id)
     }
     return(
-        <div className='channel-list'>
-            {documents.map(item => {
+        <ul>
+             {documents.map(item => {
                 return (
-                <ul key={item.key}>
-                    <button onClick={(event) =>{
+                <li key={item.key}>
+                    <a href="/" onClick={(event) =>{
                         event.preventDefault()
-                        onClickHandler(item)
-                    }}>
-                        {item.fileName}
-                    </button>
-                </ul>)
-            })}
-        </div>
+                        onClickHandler(item)}}>
+                        <span>{item.fileName}</span>
+                    </a>
+                <hr/>
+                </li>
+                )
+             })}
+        </ul>
     )
 }
 

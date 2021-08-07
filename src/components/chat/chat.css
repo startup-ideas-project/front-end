@@ -1,0 +1,30 @@
+
+html {
+    overflow-y: scroll;
+    height: 100%;
+    margin: 0px auto;
+    padding: 0;
+}
+
+body {
+    height: 100%;
+}
+
+#title-row {
+    height: 100px;
+}
+
+#content-row {
+    background-color: rgba(191, 225, 244, 0.81);
+    height: 1100px;
+}
+
+.row {
+    background: #2980b9;
+    border: #cdcdcd medium solid;
+    border-radius: 10px;
+}
+
+.col {
+    border: #cdcdcd medium solid;
+}
