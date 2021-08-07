@@ -1,13 +1,7 @@
 import React, {useState, useEffect} from 'react';
-import Box from '@material-ui/core/Box';
 import FileView from '../file-view/file-view';
 import DocumentView from '../document-view/document-view';
 import ChatView from '../chat-view/chat-view';
-import Paper from '@material-ui/core/Paper';
-import Container from 'react-bootstrap/Container'
-import Row from 'react-bootstrap/Row'
-import Col from 'react-bootstrap/Col'
-import Grid from '@material-ui/core/Grid';
 import {getFiles} from '../../api/file-service';
 import "./chat.css"
 
@@ -32,6 +26,7 @@ const LandingPage = () => {
         getFiles().then(data => setFiles(data.data.Items))
     }, [])
     
+    // <img src={logo_size} alt="failedToLoad"/>
     return (
         
     <div class="container">
