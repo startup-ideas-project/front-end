@@ -59,7 +59,10 @@ const SignIn = (props) => {
     USER_API.loginUser(userName, password).then(res => {
         if (res.status === 200){ 
           dispatch({
-            type: USER_AUTHENTICATED
+            type: USER_AUTHENTICATED,
+            payload: {
+              userName
+            }
           })
           history.push("/")
       }

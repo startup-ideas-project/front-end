@@ -23,8 +23,11 @@ body {
     background: #2980b9;
     border: #cdcdcd medium solid;
     border-radius: 10px;
+    text-overflow: ellipsis;
 }
 
 .col {
     border: #cdcdcd medium solid;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }

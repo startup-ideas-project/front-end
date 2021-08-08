@@ -3,6 +3,7 @@ import FileView from '../file-view/file-view';
 import DocumentView from '../document-view/document-view';
 import ChatView from '../chat-view/chat-view';
 import {getFiles} from '../../api/file-service';
+import UserView from '../user/user-view';
 import "./chat.css"
 
 // logo
@@ -17,11 +18,6 @@ const LandingPage = () => {
         commentid: ""
     })
 
-    console.log(`selected document`)
-    console.log(selectedDocument)
-    console.log(`selected comment`)
-    console.log(selectedComment)
-
     useEffect(() => {
         getFiles().then(data => setFiles(data.data.Items))
     }, [])
@@ -33,7 +29,10 @@ const LandingPage = () => {
         <div class="row" id="title-row">
             <div class="col col-sm-3"><h2>Peer Review Chat</h2></div>
             <div class="col col-sm-6"><h4> Document View: {selectedDocument.fileName}</h4></div>
-            <div class="col col-sm-3">Comments on this part of document: {selectedComment.text}</div>
+            <div class="col col-sm-3">
+                User Info
+                <UserView />
+            </div>
         </div>
         <div class="row" id="content-row">
             <div class="col col-sm-3">

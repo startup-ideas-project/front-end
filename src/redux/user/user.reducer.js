@@ -1,6 +1,7 @@
 import {USER_AUTHENTICATED} from './user.types';
 
 const INITIAL_STATE = {
+    name: "",
     authenticated: false
 }
 
@@ -9,7 +10,8 @@ const userReducer = (state = INITIAL_STATE, action) => {
         case USER_AUTHENTICATED:
             return {
                 ...state,
-                authenticated: true
+                authenticated: true,
+                name: action.payload.userName
             }
         default: return state
     }

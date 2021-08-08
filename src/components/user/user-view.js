@@ -1,10 +1,11 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 
 const UserView = ({userName, userEmail}) => {
+    const user = useSelector(state => state.user)
     return (
         <div>
-            <h1>{userName}</h1>
-            <h1>{userEmail}</h1>
+            <span>email: {user.name}</span>
         </div>
     )
 }
