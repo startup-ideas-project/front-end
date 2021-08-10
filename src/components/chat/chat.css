@@ -12,21 +12,24 @@ body {
 
 #title-row {
     height: 100px;
-}
 
-#content-row {
-    background-color: rgba(191, 225, 244, 0.81);
-    height: 1100px;
-}
-
-.row {
     background: #2980b9;
+
     border: #cdcdcd medium solid;
     border-radius: 10px;
     text-overflow: ellipsis;
 }
 
-.col {
+#content-row {
+    background-color: rgba(191, 225, 244, 0.81);
+    height: 1100px;
+
+    border: #cdcdcd medium solid;
+    border-radius: 10px;
+    text-overflow: ellipsis;
+}
+
+.column-border {
     border: #cdcdcd medium solid;
     text-overflow: ellipsis;
     overflow: hidden;
