@@ -3,7 +3,6 @@ import axios from 'axios';
 const userServiceURL = "http://localhost:4000/user"
 
 const loginUser = (userName, password) => {
-    console.log(userName, password)
     const body = {
         userInfo: {
             email: userName,
@@ -18,7 +17,16 @@ const signUpUser = (userInfo) => {
     return axios.post(`${userServiceURL}`, body)
 }
 
+const getAllUser = (token) => {
+    return axios.get(`${userServiceURL}/getAllUser`, {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    })
+}
+
 export {
     loginUser,
-    signUpUser
+    signUpUser,
+    getAllUser
 }

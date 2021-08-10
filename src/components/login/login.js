@@ -61,7 +61,8 @@ const SignIn = (props) => {
           dispatch({
             type: USER_AUTHENTICATED,
             payload: {
-              userName
+              userName,
+              token: res.data.token
             }
           })
           history.push("/")

@@ -26,24 +26,24 @@ const LandingPage = () => {
     // <img src={logo_size} alt="failedToLoad"/>
     return (
         
-    <div class="container">
-        <div class="row" id="title-row">
-            <div class="col col-sm-3 column-border"><h2>Peer Review Chat</h2></div>
-            <div class="col col-sm-6 column-border"><h4> Document View: {selectedDocument.fileName}</h4></div>
-            <div class="col col-sm-3 column-border">
+    <div className="container">
+        <div className="row" id="title-row">
+            <div className="col col-sm-3 column-border"><h2>Peer Review Chat</h2></div>
+            <div className="col col-sm-6 column-border"><h4> Document View: {selectedDocument.fileName}</h4></div>
+            <div className="col col-sm-3 column-border">
                 User Info
                 <UserView />
             </div>
         </div>
-        <div class="row " id="content-row">
-            <div class="col col-sm-3 column-border">
+        <div className="row " id="content-row">
+            <div className="col col-sm-3 column-border">
                 <FileView setDocument={setSelectedDocument} documents={files}/>
             </div>
-            <div class="col col-sm-6 column-border">
+            <div className="col col-sm-6 column-border">
                 <DocumentView document={selectedDocument} setSelectedComment={setSelectedComment}/>
                 <AddReviewer document={selectedDocument}/>
             </div>
-            <div class="col col-sm-3 column-border">
+            <div className="col col-sm-3 column-border">
                 <ChatView
                     comment={selectedComment}
                 />

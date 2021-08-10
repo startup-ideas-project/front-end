@@ -11,7 +11,8 @@ const userReducer = (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 authenticated: true,
-                name: action.payload.userName
+                name: action.payload.userName,
+                token: action.payload.token
             }
         default: return state
     }

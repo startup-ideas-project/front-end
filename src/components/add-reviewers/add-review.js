@@ -1,14 +1,25 @@
-import React from 'react';
-import DropdownButton from 'react-bootstrap/DropdownButton'
+import React, { useEffect, useState } from 'react';
 import Dropdown from 'react-bootstrap/Dropdown'
 import Button from 'react-bootstrap/Button'
 import Row from 'react-bootstrap/Row'
 import Container from 'react-bootstrap/Container'
 import Col from 'react-bootstrap/Col'
+import { useSelector } from 'react-redux';
+
+// APIs
+import {USER_API} from '../../api'
 
 
 const AddReviewer = ({document}) => {
-    console.log(document)
+    
+    const user = useSelector(state => state.user)
+    const [allUsers, setAllUsers] = useState([])
+
+    useEffect(() => {
+        USER_API.getAllUser(user.token).then(data => setAllUsers(data))
+    },[user.token])
+
+    console.log(allUsers)
     return (
         <Container>
             <hr/>
@@ -20,9 +31,9 @@ const AddReviewer = ({document}) => {
                         </Dropdown.Toggle>
 
                         <Dropdown.Menu>
-                            <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-                            <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-                            <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
+                            <Dropdown.Item eventKey="1">Action</Dropdown.Item>
+                            <Dropdown.Item eventKey="1">Another action</Dropdown.Item>
+                            <Dropdown.Item eventKey="1">Something else</Dropdown.Item>
                         </Dropdown.Menu>
                     </Dropdown>
                 </Col>
