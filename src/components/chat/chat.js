@@ -41,7 +41,7 @@ const LandingPage = () => {
             </div>
             <div className="col col-sm-6 column-border">
                 <DocumentView document={selectedDocument} setSelectedComment={setSelectedComment}/>
-                <AddReviewer document={selectedDocument}/>
+                {selectedDocument ? <AddReviewer document={selectedDocument}/> : <></>}
             </div>
             <div className="col col-sm-3 column-border">
                 <ChatView

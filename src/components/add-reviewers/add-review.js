@@ -7,37 +7,53 @@ import Col from 'react-bootstrap/Col'
 import { useSelector } from 'react-redux';
 
 // APIs
-import {USER_API} from '../../api'
+import {USER_API, COMMENT_API} from '../../api';
 
 
 const AddReviewer = ({document}) => {
     
     const user = useSelector(state => state.user)
     const [allUsers, setAllUsers] = useState([])
+    const [selectedReviewer, setSelectedReview] = useState("")
 
     useEffect(() => {
-        USER_API.getAllUser(user.token).then(data => setAllUsers(data))
+        USER_API.getAllUser(user.token).then(data => setAllUsers(data.data))
     },[user.token])
 
-    console.log(allUsers)
+    const handleSelect = (event) => {
+        setSelectedReview(event)
+    }
+
+
+    console.log(document)
+    const handleAddReviewerOnClick = (event) => {
+        event.preventDefault()
+        COMMENT_API.postReviewer({
+            documentID: document.fileID,
+            userEmail: selectedReviewer
+        })
+    }
+
     return (
         <Container>
             <hr/>
             <Row>
                 <Col>
-                    <Dropdown>
+                    <Dropdown onSelect={handleSelect}>
                         <Dropdown.Toggle variant="success" id="dropdown-basic">
-                            Reviewers
+                            {selectedReviewer === "" ? "Reviewers" : selectedReviewer}
                         </Dropdown.Toggle>
 
                         <Dropdown.Menu>
-                            <Dropdown.Item eventKey="1">Action</Dropdown.Item>
-                            <Dropdown.Item eventKey="1">Another action</Dropdown.Item>
-                            <Dropdown.Item eventKey="1">Something else</Dropdown.Item>
+                            {allUsers.map(user => {
+                                return (
+                                    <Dropdown.Item eventKey={user.email}>{user.email}</Dropdown.Item>
+                                )
+                            })}
                         </Dropdown.Menu>
                     </Dropdown>
                 </Col>
-                <Col><Button>Add Reviewer</Button></Col>
+                <Col><Button onClick={handleAddReviewerOnClick}>Add Reviewer</Button></Col>
             </Row>
         </Container>
     )
