@@ -18,6 +18,7 @@ const LandingPage = () => {
         text: "",
         commentid: ""
     })
+    const [user, setUser]= useState({})
 
     useEffect(() => {
         getFiles().then(data => setFiles(data.data.Items))
@@ -32,7 +33,7 @@ const LandingPage = () => {
             <div className="col col-sm-6 column-border"><h4> Document View: {selectedDocument.fileName}</h4></div>
             <div className="col col-sm-3 column-border">
                 User Info
-                <UserView />
+                <UserView setUser={setUser}/>
             </div>
         </div>
         <div className="row " id="content-row">
@@ -46,6 +47,7 @@ const LandingPage = () => {
             <div className="col col-sm-3 column-border">
                 <ChatView
                     comment={selectedComment}
+                    user={user}
                 />
             </div>
         </div>

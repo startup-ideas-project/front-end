@@ -17,8 +17,6 @@ const postComment = ({creatorID, startIndex, endingIndex, documentID}) => {
 }
 
 const postReviewer = ({documentID, userEmail}) => {
-    console.log(documentID)
-    console.log(userEmail)
     const payload = {
         additionInfo: {
             documentID,

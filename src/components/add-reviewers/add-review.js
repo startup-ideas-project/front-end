@@ -24,8 +24,6 @@ const AddReviewer = ({document}) => {
         setSelectedReview(event)
     }
 
-
-    console.log(document)
     const handleAddReviewerOnClick = (event) => {
         event.preventDefault()
         COMMENT_API.postReviewer({

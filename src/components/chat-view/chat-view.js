@@ -4,7 +4,7 @@ import socketIOClient from "socket.io-client";
 import {getMessages} from '../../api/chat-service';
 
 
-const ChatView = ({comment}) => {
+const ChatView = ({comment, user}) => {
     const socketURL = "http://127.0.0.1:4080";
     const [response, setResponse] = useState("");
     const [inputText, setInputText] = useState("")
@@ -16,8 +16,8 @@ const ChatView = ({comment}) => {
         setInputText(event.target.value)
     }
 
-    const send = (commentID, message) => {
-        useSocket.emit(commentID, message)
+    const handleOnSend = (commentID, message, sender) => {
+        useSocket.emit(commentID, {message, sender})
         useSocket.on(commentID, data => {
             setResponse(data)
             setInputText("")
@@ -26,15 +26,16 @@ const ChatView = ({comment}) => {
 
     useEffect(() => {
         getMessages(comment.commentid).then(data => {
-            console.log(data)
             setMessageStore(data.data.Items)
         })
-    },[comment])
+    },[comment, response])
 
     useEffect(() => {
         const socket = socketIOClient(socketURL);
         setUseSocket(socket)
     },[])
+
+    console.log(messageStore)
 
     useEffect(() => {
         const messages = messageStore.map(item => {
@@ -43,13 +44,14 @@ const ChatView = ({comment}) => {
                 creator : item.creator}
         })
         setDisplayedMessage(messages)
-    },[messageStore])
+    },[messageStore, response])
 
-    const displayMessage = () => {
+    console.log(displayedMessage)
+    const DisplayMessage = () => {
         return displayedMessage.map(message => {
             return (
                 <div>
-                    <h4>{message.creator}</h4>
+                    <i>{message.creator}: </i>
                     <p>{message.message}</p>
                 </div>
             )
@@ -59,11 +61,10 @@ const ChatView = ({comment}) => {
     return(
         <div>
             <p>Chat Section for the text "{comment.text}"</p>
-            {displayMessage()}
-            <h1>{response}</h1>
+            <DisplayMessage />
             <div className="messages-input">
                     <input type="text" onChange={handleInput} value={inputText} />
-                    <button onClick={() => send(comment.commentid, inputText)}>Send</button>
+                    <button onClick={() => handleOnSend(comment.commentid, inputText, user.name)}>Send</button>
                 </div>
         </div>
     )
