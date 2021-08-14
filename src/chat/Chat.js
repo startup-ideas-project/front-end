@@ -18,10 +18,9 @@ const Chat = () => {
             <Switch>
                 <Route path="/signin" component={SignIn}/>
                 <Route path="/signup" component={SignUp}/>
-
                 {/* this is the correct route */}
+                <AuthedRoute authed={user.authenticated}  path="/upload" Component={FileUpload}/>
                 <AuthedRoute authed={user.authenticated}  path="/" Component={LandingPage}/>
-                <AuthedRoute authed={user.authenticated}  path="/upload" Component={LandingPage}/>
             </Switch>
         </Router>
     )

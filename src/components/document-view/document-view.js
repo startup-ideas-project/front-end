@@ -60,7 +60,7 @@ const DocumentView = ({document, setSelectedComment}) => {
         // =====================
 
 
-        return textResult(text.slice(0,startindex), text.slice(startindex, endingindex), text.slice(endingindex,17))
+        return textResult(text.slice(0,startindex), text.slice(startindex, endingindex), text.slice(endingindex,text.length))
     }
 
     const onMouseUpHandler = (event) => {

@@ -35,8 +35,6 @@ const ChatView = ({comment, user}) => {
         setUseSocket(socket)
     },[])
 
-    console.log(messageStore)
-
     useEffect(() => {
         const messages = messageStore.map(item => {
             return {
@@ -46,7 +44,6 @@ const ChatView = ({comment, user}) => {
         setDisplayedMessage(messages)
     },[messageStore, response])
 
-    console.log(displayedMessage)
     const DisplayMessage = () => {
         return displayedMessage.map(message => {
             return (
